@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工業風學習歷程 | Industrial Portfolio</title>
+    <style>
+        /* --- CSS 樣式區 --- */
+        :root {
+            --bg-dark: #121212;
+            --panel-bg: #1e1e1e;
+            --accent-orange: #ff5e00;
+            --metal-gray: #444444;
+            --text-light: #d1d1d1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px; /* 網格背景設計 */
+            color: var(--text-light);
+            font-family: 'Segoe UI', "Microsoft JhengHei", sans-serif;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* 側邊導航欄 */
+        nav {
+            width: 260px;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c2c2c, #000);
+            border-right: 5px solid var(--metal-gray);
+            position: fixed;
+            padding: 40px 20px;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 50px;
+            border-left: 8px solid var(--accent-orange);
+            padding-left: 15px;
+        }
+
+        nav ul { list-style: none; }
+        nav ul li { margin-bottom: 25px; }
+        nav ul li a {
+            color: #888;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-orange);
+            transform: translateX(10px);
+        }
+
+        /* 主要內容區 */
+        main {
+            margin-left: 260px;
+            padding: 60px;
+            width: calc(100% - 260px);
+        }
+
+        section {
+            background: var(--panel-bg);
+            margin-bottom: 80px;
+            padding: 40px;
+            border: 2px solid var(--metal-gray);
+            position: relative;
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.5);
+        }
+
+        /* 模擬鉚釘裝飾 */
+        section::before, section::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #555;
+            border-radius: 50%;
+            box-shadow: inset -2px -2px 2px #000;
+        }
+        section::before { top: 10px; left: 10px; }
+        section::after { bottom: 10px; right: 10px; }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        h1::after {
+            content: "";
+            flex-grow: 1;
+            height: 2px;
+            background: var(--accent-orange);
+            margin-left: 20px;
+        }
+
+        /* 專案卡片 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #2a2a2a;
+            border: 1px solid #3d3d3d;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--accent-orange);
+            background: #333;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background: var(--accent-orange);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        /* 技能條 */
+        .skill-container { margin-bottom: 20px; }
+        .bar-bg {
+            background: #111;
+            height: 12px;
+            border-radius: 6px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            background: linear-gradient(90deg, #662600, var(--accent-orange));
+            height: 100%;
+            width: 0%; /* 由 JS 控制動畫 */
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* 旋轉齒輪裝飾 */
+        .gear-bg {
+            position: fixed;
+            bottom: -50px;
+            right: -50px;
+            font-size: 200px;
+            color: rgba(255, 94, 0, 0.03);
+            z-index: -1;
+            user-select: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">E-File</div>
+        <ul>
+            <li><a href="#about">01. 個人簡介</a></li>
+            <li><a href="#exp">02. 學習經歷</a></li>
+            <li><a href="#works">03. 專題成果</a></li>
+        </ul>
+    </nav>
+
+    <div class="gear-bg" id="gear">⚙️</div>
+
+    <main>
+        <section id="about">
+            <h1>ABOUT ME</h1>
+            <p style="line-height: 1.8;">
+                我是一名對工業設計與科技感興趣的學習者。這份歷程記錄了我如何從零開始，
+                透過不斷的實作與修正，建立起屬於自己的知識體系。
+            </p>
+        </section>
+
+        <section id="exp">
+            <h1>SKILLS</h1>
+            <div class="skill-container">
+                <p>程式邏輯 (JavaScript / Python)</p>
+                <div class="bar-bg"><div class="bar-fill" data-percent="85%"></div></div>
+            </div>
+            <div class="skill-container">
+                <p>硬體實作 (Arduino / IoT)</p>
+                <div class="bar-bg"><div class="bar-fill" data-percent="70%"></div></div>
+            </div>
+            <div class="skill-container">
+                <p>數位美學 (UI Design)</p>
+                <div class="bar-bg"><div class="bar-fill" data-percent="60%"></div></div>
+            </div>
+        </section>
+
+        <section id="works">
+            <h1>PROJECTS</h1>
+            <div class="grid">
+                <div class="card">
+                    <h3>智能溫室系統</h3>
+                    <p>利用傳感器自動調節環境數值，提升植物生長效率。</p>
+                    <a href="#" class="btn">VIEW CASE</a>
+                </div>
+                <div class="card">
+                    <h3>自動化垃圾分類機</h3>
+                    <p>結合影像辨識技術，落實精準環保分類。</p>
+                    <a href="#" class="btn">VIEW CASE</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        /* --- JavaScript 動效區 --- */
+
+        // 1. 齒輪隨滾動旋轉
+        window.addEventListener('scroll', () => {
+            const rotation = window.scrollY / 4;
+            document.getElementById('gear').style.transform = `rotate(${rotation}deg)`;
+        });
+
+        // 2. 技能條進度動畫（當捲動到該位置時觸發）
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fill = entry.target.querySelector('.bar-fill');
+                    fill.style.width = fill.getAttribute('data-percent');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.skill-container').forEach(item => {
+            observer.observe(item);
+        });
+
+        // 3. 導航平滑捲動
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
